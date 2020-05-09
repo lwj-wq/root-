@@ -122,5 +122,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,"static")
 ]
 
+# 配置邮箱
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+# #发送邮件的邮箱
+EMAIL_HOST_USER = '1556181289@qq.com'
+# #在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'gjyzvljuvvhugejh'
+# #收件人看到的发件人
+EMAIL_FROM = '1556181289@qq.com'
 
 
