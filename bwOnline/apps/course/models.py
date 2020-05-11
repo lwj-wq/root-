@@ -1,4 +1,5 @@
 from datetime import datetime
+from organization.models import CourseOrg
 
 # 课程信息表
 from django.db import models
@@ -6,32 +7,37 @@ from django.db import models
 
 class Course(models.Model):
     DEGREE_CHOICES = (
-        ("cj", u"初级"),
-        ("zj", u"中级"),
-        ("gj", u"高级")
+        ("cj", "初级"),
+        ("zj", "中级"),
+        ("gj", "高级")
     )
-    name = models.CharField(max_length=50, verbose_name=u"课程名")
-    desc = models.CharField(max_length=300, verbose_name=u"课程描述")
-    # TextField允许我们不输入长度。可以输入到无限大。暂时定义为TextFiled，之后更新为富文本
-    detail = models.TextField(verbose_name=u"课程详情")
-    degree = models.CharField(choices=DEGREE_CHOICES, max_length=2)
-    # 使用分钟做后台记录(存储最小单位)前台转换
-    learn_times = models.IntegerField(default=0, verbose_name=u"学习时长(分钟数)")
-    # 保存学习人数:点击开始学习才算
-    students = models.IntegerField(default=0, verbose_name=u"学习人数")
-    fav_nums = models.IntegerField(default=0, verbose_name=u"收藏人数")
-    image = models.ImageField(
-        upload_to="courses/%Y/%m",
-        verbose_name=u"封面图",
-        max_length=100)
-    # 保存点击量，点进页面就算
-    click_nums = models.IntegerField(default=0, verbose_name=u"点击数")
-    add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+    name = models.CharField("课程名",max_length=50)
+    desc = models.CharField("课程描述",max_length=300)
+    detail = models.TextField("课程详情")
+    degree = models.CharField('难度',choices=DEGREE_CHOICES, max_length=2)
+    learn_times = models.IntegerField("学习时长(分钟数)",default=0)
+    students = models.IntegerField("学习人数",default=0)
+    fav_nums = models.IntegerField("收藏人数",default=0)
+    image = models.ImageField("封面图",upload_to="courses/%Y/%m",max_length=100)
+    click_nums = models.IntegerField("点击数",default=0)
+    add_time = models.DateTimeField("添加时间",default=datetime.now,)
+    course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name="所属机构", null=True, blank=True)
+    category = models.CharField("课程类别",max_length=20, default="")
 
     class Meta:
-        verbose_name = u"课程"
+        verbose_name = "课程"
         verbose_name_plural = verbose_name
 
+    def get_zj_nums(self):
+        #获取课程的章节数
+        return self.lesson_set.all().count()
+
+    def get_learn_users(self):
+        #获取这门课程的学习用户
+        return self.usercourse_set.all()[:5]
+
+    def __str__(self):
+        return self.name
 
 # 章节
 class Lesson(models.Model):
