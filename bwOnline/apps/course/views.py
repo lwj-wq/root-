@@ -38,5 +38,4 @@ class CourseDetailView(View):
         course.save()
         return  render(request, "course-detail.html", {
             'course':course,
-
         })

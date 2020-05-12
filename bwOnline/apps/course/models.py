@@ -9,7 +9,7 @@ class Course(models.Model):
     DEGREE_CHOICES = (
         ("cj", "初级"),
         ("zj", "中级"),
-        ("gj", "高级")
+        ("gj", "高级"),
     )
     name = models.CharField("课程名",max_length=50)
     desc = models.CharField("课程描述",max_length=300)
