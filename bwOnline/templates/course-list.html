@@ -27,8 +27,7 @@
                 <div id="inWindow">
                     <div class="tab_cont " id="content">
                     <div class="group_list">
-
-                           {% for course in all_courses.object_list  %}
+                            {% for course in all_courses.object_list %}
                             <div class="box">
                                 <a href="{% url 'course:course_detail' course.id %}">
                                     <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
@@ -41,7 +40,7 @@
                                     <span class="fr">学习人数：{{ course.students }}&nbsp;&nbsp;</span>
                                 </div>
                                 <div class="bottom">
-                                    <a href="{% url 'course:course_detail' course.id %}l"><span class="fl">来自{{ course.course_org.name }}</span></a>
+                                    <a href="{% url 'course:course_detail' course.id %}"><span class="fl">来自{{ course.course_org.name }}</span></a>
                                     <span class="star fr  notlogin
                                         " data-favid="15">
                                         {{ course.fav_nums }}
@@ -72,11 +71,11 @@
                             {% endif %}
                         </ul>
                     </div>
-                    </div>
                 </div>
                 </div>
             </div>
             <div class="right layout">
+                <div class="head">热门课程推荐</div>
                 <div class="group_recommend">
                     {% for hot_course in hot_courses %}
                     <dl>
@@ -91,8 +90,16 @@
                         </dd>
                     </dl>
                     {% endfor %}
+
+
+
+
+
+
                 </div>
             </div>
         </div>
+    </div>
 </section>
 {% endblock %}
+
