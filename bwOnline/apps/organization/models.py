@@ -53,6 +53,7 @@ class Teacher(models.Model):
     # 可以使我们通过讲师找到对应的机构
     org = models.ForeignKey(CourseOrg, verbose_name=u"所属机构", on_delete=models.CASCADE)
     name = models.CharField(max_length=50, verbose_name=u"教师名称")
+    teacher_age = models.IntegerField('年龄', default=25)
     work_years = models.IntegerField(default=0, verbose_name=u"工作年限")
     work_company = models.CharField(max_length=50, verbose_name=u"就职公司")
     work_position = models.CharField(max_length=50, verbose_name=u"公司职位")
